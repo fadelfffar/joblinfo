@@ -11,6 +11,20 @@ Job seeking is emotionally draining. Most apps optimize for listings; Joblinfo o
 - **Effort-based gamification** — search streaks, resilience badges, weekly effort recaps
 - **Guilt-free re-engagement** — breather mode after repeated rejections
 
+## Screenshots
+
+| Home | Home (Entry & Calendar) | Explore |
+|---|---|---|
+| ![Home](screenshot/home_screen.png) | ![Home Entry and Calendar](screenshot/home_screen_entry_and_calender.png) | ![Explore](screenshot/explore_screen.png) |
+
+| Application | Application Sent | What Next |
+|---|---|---|
+| ![Application](screenshot/application_screen.png) | ![Application Sent](screenshot/application_sent_screen.png) | ![What Next](screenshot/what_next_screen.png) |
+
+| Growth | Profile |
+|---|---|
+| ![Growth](screenshot/growth_screen.png) | ![Profile](screenshot/profile_screen.png) |
+
 ## UX process docs
 | Phase | Docs |
 |---|---|
