@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import '../models/job.dart';
 import '../theme/app_theme.dart';
 
 class CelebrationScreen extends StatelessWidget {
-  final Job job;
+  final String title;
+  final String company;
   final bool isResilience;
 
-  const CelebrationScreen(
-      {super.key, required this.job, required this.isResilience});
+  const CelebrationScreen({
+    super.key,
+    required this.title,
+    required this.company,
+    required this.isResilience,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,7 @@ class CelebrationScreen extends StatelessWidget {
                 isResilience
                     ? 'It takes 20–40 applications on average. '
                         'You\'re building momentum.'
-                    : 'Applied to: ${job.title} at ${job.company}',
+                    : 'Applied to: $title at $company',
                 style: const TextStyle(
                   color: Colors.white70,
                   fontSize: kFontBody,

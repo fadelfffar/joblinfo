@@ -14,7 +14,7 @@ class JobDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
     final alreadyApplied =
-        state.applications.any((a) => a.job.id == job.id);
+        state.applications.any((a) => a.job?.id == job.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -162,7 +162,9 @@ class JobDetailScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (_) => CelebrationScreen(
-                            job: job, isResilience: false)),
+                            title: job.title,
+                            company: job.company,
+                            isResilience: false)),
                   );
                 },
                 child: const Text('Apply now'),

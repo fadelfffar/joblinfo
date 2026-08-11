@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/app_state.dart';
@@ -9,24 +11,44 @@ import '../widgets/empathy_message.dart';
 import '../widgets/job_card.dart';
 import 'celebration_screen.dart';
 
+/// Rotating pool of encouraging messages shown after a rejection so the
+/// screen doesn't feel repetitive on repeat visits.
+const _kEncouragingHeadlines = [
+  'This one wasn\'t a match',
+  'Not a "no" forever — just not this role',
+  'One door closed, more are opening',
+  'This is a redirect, not a dead end',
+];
+
+const _kEncouragingSubtitles = [
+  'The right one is still out there. Here\'s what\'s next.',
+  'Rejection means "not this fit," not "not good enough."',
+  'Every application is practice for the one that says yes.',
+  'You showed up. That already puts you ahead of most people.',
+];
+
 class RejectionRecoveryScreen extends StatelessWidget {
   final Application application;
 
   const RejectionRecoveryScreen({super.key, required this.application});
 
   List<Job> _similarJobs(List<String> appliedJobIds) {
+    final rejectedJob = application.job;
+    if (rejectedJob == null) return mockJobs.take(3).toList();
     return mockJobs
         .where((j) =>
-            j.id != application.job.id &&
+            j.id != rejectedJob.id &&
             !appliedJobIds.contains(j.id) &&
-            j.matchPercent >= application.job.matchPercent)
+            j.matchPercent >= rejectedJob.matchPercent)
         .take(3)
         .toList();
   }
 
   // Find the first skill from the rejected job that has a matching suggestion.
   String? _skillGap() {
-    for (final skill in application.job.skills) {
+    final rejectedJob = application.job;
+    if (rejectedJob == null) return null;
+    for (final skill in rejectedJob.skills) {
       final match = mockSkillSuggestions
           .any((s) => s.skill.toLowerCase() == skill.toLowerCase());
       if (match) return skill;
@@ -37,9 +59,18 @@ class RejectionRecoveryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<AppState>();
-    final appliedJobIds = state.applications.map((a) => a.job.id).toList();
+    final appliedJobIds =
+        state.applications.map((a) => a.job?.id).whereType<String>().toList();
     final similar = _similarJobs(appliedJobIds);
     final gap = _skillGap();
+
+    // Pick a message consistently per application (stable across rebuilds)
+    // but varying between different rejections.
+    final rand = Random(application.id.hashCode);
+    final headline =
+        _kEncouragingHeadlines[rand.nextInt(_kEncouragingHeadlines.length)];
+    final subtitle =
+        _kEncouragingSubtitles[rand.nextInt(_kEncouragingSubtitles.length)];
 
     return Scaffold(
       appBar: AppBar(
@@ -51,9 +82,16 @@ class RejectionRecoveryScreen extends StatelessWidget {
         children: [
           // Empathetic header
           EmpathyMessage(
-            message: 'This one wasn\'t a match',
-            subtitle:
-                'The right one is still out there. Here\'s what\'s next.',
+            message: headline,
+            subtitle: subtitle,
+          ),
+          const SizedBox(height: kSpace8),
+          Text(
+            '${application.title} at ${application.company}',
+            style: const TextStyle(
+                fontSize: kFontBody,
+                color: kColorTextSecondary,
+                fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: kSpace16),
 
@@ -99,8 +137,10 @@ class RejectionRecoveryScreen extends StatelessWidget {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) =>
-                            CelebrationScreen(job: job, isResilience: true)),
+                        builder: (_) => CelebrationScreen(
+                            title: job.title,
+                            company: job.company,
+                            isResilience: true)),
                   );
                 },
               )),

@@ -112,7 +112,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (_) => CelebrationScreen(
-                                  job: jobs[i], isResilience: false)),
+                                  title: jobs[i].title,
+                                  company: jobs[i].company,
+                                  isResilience: false)),
                         );
                       },
                     ),
