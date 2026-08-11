@@ -52,14 +52,16 @@ class _AppCard extends StatelessWidget {
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.all(kSpace12),
-        title: Text(app.job.title,
+        title: Text(app.title,
             style: const TextStyle(
                 fontWeight: FontWeight.w600, fontSize: kFontSubtitle)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: kSpace4),
-            Text('${app.job.company} · ${app.job.location}',
+            Text(app.location != null
+                    ? '${app.company} · ${app.location}'
+                    : app.company,
                 style: const TextStyle(
                     fontSize: kFontBody, color: kColorTextSecondary)),
             const SizedBox(height: kSpace4),
@@ -78,6 +80,20 @@ class _AppCard extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
             ),
+            if (app.followUpAt != null) ...[
+              const SizedBox(height: kSpace4),
+              Text(
+                app.isFollowUpOverdue
+                    ? '⏰ Follow-up overdue'
+                    : '⏰ Follow-up due ${app.followUpAt!.day}/${app.followUpAt!.month}',
+                style: TextStyle(
+                    fontSize: kFontCaption,
+                    color: app.isFollowUpOverdue
+                        ? Colors.redAccent
+                        : kColorTextSecondary,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
           ],
         ),
         onTap: isRejected
