@@ -21,5 +21,23 @@ Job seeking is emotionally draining. Most apps optimize for listings; Joblinfo o
 | 5. Handoff | `docs/05-handoff/` |
 | 6. Testing | `docs/06-testing/` |
 
+## Getting started
+
+```bash
+# 1. Install dependencies
+flutter pub get
+
+# 2. Run the app (connected device or emulator required)
+flutter run
+
+# 3. Run unit tests
+flutter test
+
+# 4. Analyse code
+flutter analyze
+```
+
 ## Tech
 - Flutter (Material 3), mobile-first
+- Provider for state management
+- Mock / in-memory data (no backend required)
