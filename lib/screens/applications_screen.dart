@@ -84,7 +84,7 @@ class _AppCard extends StatelessWidget {
               const SizedBox(height: kSpace4),
               Text(
                 app.isFollowUpOverdue
-                    ? '⏰ Follow-up overdue'
+                    ? '⏰ Good time to follow up'
                     : '⏰ Follow-up due ${app.followUpAt!.day}/${app.followUpAt!.month}',
                 style: TextStyle(
                     fontSize: kFontCaption,
