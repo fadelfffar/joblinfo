@@ -1,30 +1,46 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 
+import 'package:joblinfo/data/app_state.dart';
 import 'package:joblinfo/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  Widget buildTestApp() {
+    return ChangeNotifierProvider(
+      create: (_) => AppState(),
+      child: const JoblInfoApp(),
+    );
+  }
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('home form shows only quick-log fields by default',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(buildTestApp());
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(find.text('Position / job title'), findsOneWidget);
+    expect(find.text('Company'), findsOneWidget);
+    expect(find.text('Status'), findsOneWidget);
+    expect(find.text('More details'), findsOneWidget);
+    expect(find.text('We\'ll suggest a follow-up in 7 days'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Location (optional)'), findsNothing);
+    expect(find.text('Applied on'), findsNothing);
+    expect(find.text('Remind me to follow up'), findsNothing);
+    expect(find.text('Notes (optional)'), findsNothing);
+  });
+
+  testWidgets('more details reveals optional logging fields',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(buildTestApp());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('More details'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Location (optional)'), findsOneWidget);
+    expect(find.text('Applied on'), findsOneWidget);
+    expect(find.text('Remind me to follow up'), findsOneWidget);
+    expect(find.text('Notes (optional)'), findsOneWidget);
   });
 }

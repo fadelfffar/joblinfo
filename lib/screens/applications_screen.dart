@@ -89,7 +89,7 @@ class _AppCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: kFontCaption,
                     color: app.isFollowUpOverdue
-                        ? Colors.redAccent
+                        ? kColorAccent
                         : kColorTextSecondary,
                     fontWeight: FontWeight.w600),
               ),
@@ -113,4 +113,3 @@ class _AppCard extends StatelessWidget {
     );
   }
 }
-

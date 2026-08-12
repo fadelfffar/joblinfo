@@ -8,6 +8,7 @@ const kColorTextSecondary = Color(0xFF6B6B6B);
 const kColorRejectionNeutral = Color(0xFF8A8A8A);
 const kColorSurface = Color(0xFFF7F9F8);
 const kColorCardBg = Colors.white;
+const kColorBorder = Color(0xFFE0E0E0);
 
 // ─── Spacing tokens ───────────────────────────────────────────────────────────
 const kSpace4 = 4.0;

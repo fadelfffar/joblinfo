@@ -65,7 +65,8 @@ class JobCard extends StatelessWidget {
                     ),
                     onPressed: onSave,
                     padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
+                    constraints:
+                        const BoxConstraints(minWidth: 44, minHeight: 44),
                     tooltip: isSaved ? 'Saved' : 'Save job',
                   ),
                 ],
@@ -90,7 +91,7 @@ class JobCard extends StatelessWidget {
               const SizedBox(height: kSpace4),
               Row(
                 children: [
-                  const Icon(Icons.attach_money,
+                  const Icon(Icons.payments_outlined,
                       size: 14, color: kColorTextSecondary),
                   const SizedBox(width: 2),
                   Text(job.salaryDisplay,
@@ -122,4 +123,3 @@ class JobCard extends StatelessWidget {
     );
   }
 }
-
