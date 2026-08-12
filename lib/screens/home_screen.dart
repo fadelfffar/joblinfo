@@ -226,30 +226,63 @@ class _HomeScreenState extends State<HomeScreen> {
                   onChanged: (v) =>
                       setState(() => _status = v ?? ApplicationStatus.applied),
                 ),
-                const SizedBox(height: kSpace12),
-                _DatePickerTile(
-                  icon: Icons.event_available,
-                  label: 'Applied on',
-                  value: _appliedAt,
-                  onTap: _pickAppliedDate,
-                ),
-                const SizedBox(height: kSpace8),
-                _DatePickerTile(
-                  icon: Icons.alarm,
-                  label: 'Remind me to follow up',
-                  value: _followUpAt,
-                  onTap: _pickFollowUpDate,
-                  onClear: _followUpAt == null
-                      ? null
-                      : () => setState(() => _followUpAt = null),
-                ),
-                const SizedBox(height: kSpace12),
-                TextFormField(
-                  controller: _notesController,
-                  decoration: const InputDecoration(
-                    labelText: 'Notes (optional)',
+                if (_followUpAt == null) ...[
+                  const SizedBox(height: kSpace8),
+                  const Text(
+                    'We\'ll suggest a follow-up in 7 days',
+                    style: TextStyle(
+                        fontSize: kFontCaption, color: kColorTextSecondary),
                   ),
-                  maxLines: 2,
+                ],
+                const SizedBox(height: kSpace8),
+                Theme(
+                  data: Theme.of(context)
+                      .copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    tilePadding: EdgeInsets.zero,
+                    childrenPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'More details',
+                      style: TextStyle(
+                          fontSize: kFontBody,
+                          fontWeight: FontWeight.w600,
+                          color: kColorTextPrimary),
+                    ),
+                    children: [
+                      const SizedBox(height: kSpace4),
+                      TextFormField(
+                        controller: _locationController,
+                        decoration: const InputDecoration(
+                          labelText: 'Location (optional)',
+                        ),
+                      ),
+                      const SizedBox(height: kSpace12),
+                      _DatePickerTile(
+                        icon: Icons.event_available,
+                        label: 'Applied on',
+                        value: _appliedAt,
+                        onTap: _pickAppliedDate,
+                      ),
+                      const SizedBox(height: kSpace8),
+                      _DatePickerTile(
+                        icon: Icons.alarm,
+                        label: 'Remind me to follow up',
+                        value: _followUpAt,
+                        onTap: _pickFollowUpDate,
+                        onClear: _followUpAt == null
+                            ? null
+                            : () => setState(() => _followUpAt = null),
+                      ),
+                      const SizedBox(height: kSpace12),
+                      TextFormField(
+                        controller: _notesController,
+                        decoration: const InputDecoration(
+                          labelText: 'Notes (optional)',
+                        ),
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: kSpace16),
                 SizedBox(
@@ -297,7 +330,7 @@ class _DatePickerTile extends StatelessWidget {
             horizontal: kSpace12, vertical: kSpace12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(kRadiusButton),
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: kColorBorder),
         ),
         child: Row(
           children: [
@@ -314,7 +347,8 @@ class _DatePickerTile extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.close, size: 16),
                 padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
+                constraints:
+                    const BoxConstraints(minWidth: 44, minHeight: 44),
                 onPressed: onClear,
               ),
           ],
@@ -334,7 +368,7 @@ class _FollowUpCard extends StatelessWidget {
     final days = application.daysUntilFollowUp!;
     if (days < 0) {
       final n = days.abs();
-      return 'Overdue by $n day${n == 1 ? '' : 's'}';
+      return 'Waiting $n day${n == 1 ? '' : 's'} — good time to nudge them 👋';
     }
     if (days == 0) return 'Due today';
     return 'Due in $days day${days == 1 ? '' : 's'}';
@@ -343,7 +377,7 @@ class _FollowUpCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<AppState>();
-    final color = overdue ? Colors.redAccent : kColorAccent;
+    final color = kColorAccent;
 
     return Container(
       margin: const EdgeInsets.only(bottom: kSpace8),
