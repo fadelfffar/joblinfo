@@ -377,7 +377,7 @@ class _FollowUpCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<AppState>();
-    final color = kColorAccent;
+    const color = kColorAccent;
 
     return Container(
       margin: const EdgeInsets.only(bottom: kSpace8),
@@ -404,7 +404,7 @@ class _FollowUpCard extends StatelessWidget {
                         color: kColorTextPrimary)),
                 const SizedBox(height: kSpace4),
                 Text(_dueLabel(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: kFontCaption,
                         color: color,
                         fontWeight: FontWeight.w600)),

@@ -117,17 +117,17 @@ class GrowthScreen extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   color: kColorTextPrimary)),
           const SizedBox(height: kSpace12),
-          ProfileProgressBar(
+          const ProfileProgressBar(
             percent: 60,
             label: 'Design skills',
           ),
           const SizedBox(height: kSpace12),
-          ProfileProgressBar(
+          const ProfileProgressBar(
             percent: 40,
             label: 'Technical skills',
           ),
           const SizedBox(height: kSpace12),
-          ProfileProgressBar(
+          const ProfileProgressBar(
             percent: 75,
             label: 'Communication skills',
           ),

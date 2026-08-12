@@ -9,7 +9,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = mockUser;
+    const user = mockUser;
 
     return Scaffold(
       appBar: AppBar(title: const Text('My Profile')),

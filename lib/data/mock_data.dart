@@ -57,7 +57,12 @@ final List<Job> mockJobs = [
     matchPercent: 68,
     description:
         'Lead a cross-functional squad building travel tech products. You will define roadmaps, write PRDs, and ship with engineers and designers.',
-    skills: ['Product Strategy', 'Agile', 'Data Analysis', 'Stakeholder Management'],
+    skills: [
+      'Product Strategy',
+      'Agile',
+      'Data Analysis',
+      'Stakeholder Management'
+    ],
     category: 'Product',
   ),
   const Job(
@@ -199,7 +204,7 @@ final List<Application> mockApplications = [
 ];
 
 // ─── Mock User ────────────────────────────────────────────────────────────────
-final UserProfile mockUser = UserProfile(
+const UserProfile mockUser = UserProfile(
   name: 'Rina Kusuma',
   headline: 'Fresh Graduate · UI/UX Designer',
   location: 'Bandung, Indonesia',
@@ -208,7 +213,7 @@ final UserProfile mockUser = UserProfile(
   totalApplications: 8,
   thisWeekApplications: 6,
   skillsAddedThisWeek: 2,
-  badges: const [
+  badges: [
     Badge(
       id: 'b1',
       label: 'First Application',
@@ -262,7 +267,7 @@ class SkillSuggestion {
   });
 }
 
-final List<SkillSuggestion> mockSkillSuggestions = const [
+const List<SkillSuggestion> mockSkillSuggestions = [
   SkillSuggestion(
     skill: 'SQL',
     courseTitle: 'SQL for Beginners',
