@@ -3,6 +3,7 @@ import '../models/application.dart';
 import '../models/job.dart';
 import '../data/mock_data.dart';
 
+/// Central Provider state for saved jobs and application tracking.
 class AppState extends ChangeNotifier {
   final List<Application> _applications = List.from(mockApplications);
   final List<String> _savedJobIds = [];

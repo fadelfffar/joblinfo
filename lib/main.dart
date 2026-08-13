@@ -12,13 +12,14 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (_) => AppState(),
-      child: const JoblInfoApp(),
+      child: const JobInfoApp(),
     ),
   );
 }
 
-class JoblInfoApp extends StatelessWidget {
-  const JoblInfoApp({super.key});
+/// Root widget that wires app-wide theme and navigation shell.
+class JobInfoApp extends StatelessWidget {
+  const JobInfoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class JoblInfoApp extends StatelessWidget {
   }
 }
 
+/// Main bottom-navigation container for primary app sections.
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 
