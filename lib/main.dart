@@ -17,6 +17,7 @@ void main() {
   );
 }
 
+/// Root widget that wires app-wide theme and navigation shell.
 class JoblInfoApp extends StatelessWidget {
   const JoblInfoApp({super.key});
 
@@ -31,6 +32,7 @@ class JoblInfoApp extends StatelessWidget {
   }
 }
 
+/// Main bottom-navigation container for primary app sections.
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
 

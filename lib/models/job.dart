@@ -1,5 +1,7 @@
+/// Preferred work arrangement for a job listing.
 enum WorkMode { remote, hybrid, onsite }
 
+/// Immutable job listing model used across browse and apply flows.
 class Job {
   final String id;
   final String title;
